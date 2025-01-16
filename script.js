@@ -24,68 +24,68 @@ function calculatePoints() {
     
     // Temperature points
     const temp = Number(inputs.temperature.value);
-    if (temp <= 15) points += 15;
-    else if (temp <= 25) points += 20;
-    else if (temp <= 32) points += 15;
-    else if (temp <= 34) points += 10;
+    if (temp <= 15) points += 10;
+    else if (temp <= 25) points += 15;
+    else if (temp <= 32) points += 10;
+    else if (temp <= 34) points += 5;
     
     // Wind speed points
     const windSpeed = Number(inputs.windSpeed.value);
-    if (windSpeed > 20) points += 15;
-    else if (windSpeed > 15) points += 10;
-    else if (windSpeed > 10) points += 8;
+    if (windSpeed > 20) points += 10;
+    else if (windSpeed > 15) points += 7;
+    else if (windSpeed > 10) points += 5;
     
     // Wind gust points
     const windGust = Number(inputs.windGust.value);
-    if (windGust > 35) points += 20;
-    else if (windGust > 25) points += 15;
-    else if (windGust > 15) points += 10;
+    if (windGust > 35) points += 15;
+    else if (windGust > 25) points += 10;
+    else if (windGust > 15) points += 5;
     
     // Precipitation type points
     switch(inputs.precipType.value) {
         case 'snow':
-            points += 20;
-            break;
-        case 'wintrymix':
             points += 15;
             break;
+        case 'wintrymix':
+            points += 10;
+            break;
         case 'lightsnow':
-            points += 12;
+            points += 7;
             break;
         case 'rain':
-            points += (temp <= 33 ? 10 : 5);
+            points += (temp <= 33 ? 7 : 3);
             break;
     }
     
     // Precipitation amount points
     const precipAmount = Number(inputs.precipAmount.value);
-    if (precipAmount < 0.5) points += 5;
-    else if (precipAmount < 1) points += 10;
-    else if (precipAmount < 2) points += 15;
-    else points += 20;
+    if (precipAmount < 0.5) points += 3;
+    else if (precipAmount < 1) points += 7;
+    else if (precipAmount < 2) points += 10;
+    else points += 15;
     
     // Precipitation ending time points
     switch(inputs.precipEnding.value) {
         case 'before5am':
-            points += 5;
+            points += 0;
             break;
         case '5am-7am':
-            points += 10;
+            points += 3;
             break;
         case 'after7am':
-            points += 15;
+            points += 10;
             break;
         case 'ongoing':
-            points += 20;
+            points += 15;
             break;
     }
     
     // Early morning timing points
-    if (inputs.timing.value === 'yes') points += 15;
+    if (inputs.timing.value === 'yes') points += 10;
     
     // Temperature trend points
-    if (inputs.trend.value === 'falling') points += 10;
-    else if (inputs.trend.value === 'steady') points += 5;
+    if (inputs.trend.value === 'falling') points += 7;
+    else if (inputs.trend.value === 'steady') points += 3;
     
     return points;
 }
@@ -93,7 +93,7 @@ function calculatePoints() {
 function calculateProbabilities() {
     const points = calculatePoints();
     
-    // Match spreadsheet formulas exactly
+    // Calculate probabilities using our calibrated formulas
     const delay = Math.min(100, Math.max(0, points - 20));
     const cancel = Math.min(100, Math.max(0, points >= 40 ? points - 40 : points - 20));
     
