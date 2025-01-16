@@ -93,13 +93,9 @@ function calculatePoints() {
 function calculateProbabilities() {
     const points = calculatePoints();
     
-    // Calculate probabilities using our calibrated formulas
-    let delay = points + 20;
-    let cancel = points;
-    
-    // Cap at 100%
-    delay = Math.min(100, Math.max(0, delay));
-    cancel = Math.min(100, Math.max(0, cancel));
+    // Match spreadsheet formulas exactly
+    const delay = Math.min(100, Math.max(0, points - 20));
+    const cancel = Math.min(100, Math.max(0, points >= 40 ? points - 40 : points - 20));
     
     // Update the display
     delayDisplay.textContent = Math.round(delay);
