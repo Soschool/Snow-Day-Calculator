@@ -1,4 +1,3 @@
-```javascript
 const inputs = {
     temperature: document.getElementById('temperature'),
     windSpeed: document.getElementById('windSpeed'),
@@ -52,10 +51,10 @@ function calculatePoints() {
     }
     
     const precipAmount = Number(inputs.precipAmount.value);
-    if (precipAmount < 1) points += 5;
-    else if (precipAmount < 2) points += 15;
-    else if (precipAmount < 4) points += 25;
-    else points += 35;
+    if (precipAmount >= 4) points += 35;
+    else if (precipAmount >= 2) points += 25;
+    else if (precipAmount >= 1) points += 15;
+    else points += 5;
     
     switch(inputs.precipEnding.value) {
         case 'before5am':
@@ -82,12 +81,11 @@ function calculatePoints() {
 
 function calculateProbabilities() {
     const points = calculatePoints();
-    const delay = Math.min(100, Math.max(0, points - 20));
-    const cancel = Math.min(100, Math.max(0, points >= 40 ? points - 40 : points - 20));
+    const delay = Math.min(100, Math.max(0, points));
+    const cancel = Math.min(100, Math.max(0, points - 20));
     
     delayDisplay.textContent = Math.round(delay);
     cancelDisplay.textContent = Math.round(cancel);
 }
 
 calculateProbabilities();
-
