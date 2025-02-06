@@ -64,8 +64,8 @@ function calculatePoints() {
 
 function calculateProbabilities() {
     const points = calculatePoints();
-    const delay = Math.min(100, Math.max(0, points + 15));
-    const cancel = Math.min(100, Math.max(0, points - 10));
+    const delay = Math.min(100, Math.max(0, points + 5));
+    const cancel = Math.min(100, Math.max(0, points - 25));
     
     delayDisplay.textContent = Math.round(delay);
     cancelDisplay.textContent = Math.round(cancel);
