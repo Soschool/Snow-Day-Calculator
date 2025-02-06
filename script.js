@@ -1,3 +1,22 @@
+const inputs = {
+    temperature: document.getElementById('temperature'),
+    windSpeed: document.getElementById('windSpeed'),
+    windGust: document.getElementById('windGust'),
+    precipAmount: document.getElementById('precipAmount'),
+    precipType: document.getElementById('precipType'),
+    precipEnding: document.getElementById('precipEnding'),
+    timing: document.getElementById('timing'),
+    afternoon: document.getElementById('afternoon'),
+    trend: document.getElementById('trend')
+};
+
+const delayDisplay = document.querySelector('#delayResult span');
+const cancelDisplay = document.querySelector('#cancelResult span');
+
+Object.values(inputs).forEach(input => {
+    input.addEventListener('change', calculateProbabilities);
+});
+
 function calculatePoints() {
     let points = 0;
     
@@ -70,3 +89,5 @@ function calculateProbabilities() {
     delayDisplay.textContent = Math.round(delay);
     cancelDisplay.textContent = Math.round(cancel);
 }
+
+calculateProbabilities();
