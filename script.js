@@ -6,6 +6,7 @@ const inputs = {
     precipType: document.getElementById('precipType'),
     precipEnding: document.getElementById('precipEnding'),
     timing: document.getElementById('timing'),
+    afternoon: document.getElementById('afternoon'),
     trend: document.getElementById('trend')
 };
 
@@ -51,8 +52,8 @@ function calculatePoints() {
     }
     
     const precipAmount = Number(inputs.precipAmount.value);
-    if (precipAmount >= 4) points += 35;
-    else if (precipAmount >= 2) points += 25;
+    if (precipAmount >= 4) points += 25;
+    else if (precipAmount >= 2) points += 20;
     else if (precipAmount >= 1) points += 15;
     else points += 5;
     
@@ -64,14 +65,15 @@ function calculatePoints() {
             points += 10;
             break;
         case 'after7am':
-            points += 20;
+            points += 15;
             break;
         case 'ongoing':
-            points += 30;
+            points += 20;
             break;
     }
     
     if (inputs.timing.value === 'yes') points += 15;
+    if (inputs.afternoon.value === 'yes') points += 25;
     
     if (inputs.trend.value === 'falling') points += 10;
     else if (inputs.trend.value === 'steady') points += 5;
@@ -81,8 +83,8 @@ function calculatePoints() {
 
 function calculateProbabilities() {
     const points = calculatePoints();
-    const delay = Math.min(100, Math.max(0, points));
-    const cancel = Math.min(100, Math.max(0, points - 20));
+    const delay = Math.min(100, Math.max(0, points - 40));
+    const cancel = Math.min(100, Math.max(0, points >= 80 ? points - 60 : points - 70));
     
     delayDisplay.textContent = Math.round(delay);
     cancelDisplay.textContent = Math.round(cancel);
