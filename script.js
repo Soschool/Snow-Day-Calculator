@@ -1,5 +1,3 @@
-Here's the updated `script.js` with the new weightings:
-
 ```javascript
 const inputs = {
     temperature: document.getElementById('temperature'),
@@ -92,5 +90,4 @@ function calculateProbabilities() {
 }
 
 calculateProbabilities();
-```
 
